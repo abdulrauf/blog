@@ -9,7 +9,7 @@
 
 - if @comment.moderation_required
   %p
-    = link_to "Click here to approve the comment", admin_comments_moderation_path(@comment.id, :moderation => "approve")
+    = link_to "Click here to approve the comment", admin_comments_moderation_url(@comment.id, :moderation => "approve")
   %p
     = link_to "Click here to disapprove the comment", admin_comments_moderation_url(@comment.id, :moderation => "disapprove")
 
