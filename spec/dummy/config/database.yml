@@ -1,6 +1,6 @@
 test:
   adapter: postgresql
-  database: gluttonberg_core_test
+  database: gluttonberg_blog_test
   username: postgres
   password: ""
   encoding: unicode

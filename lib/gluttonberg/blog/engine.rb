@@ -13,6 +13,11 @@ module Gluttonberg
       initializer "init constants" do  |app|
       end
 
+      # Load rake tasks
+      rake_tasks do
+        load File.join(File.dirname(__FILE__), 'tasks/blog_tasks.rake')
+      end
+
     end
   end
 end
