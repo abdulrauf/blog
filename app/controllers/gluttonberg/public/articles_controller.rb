@@ -42,10 +42,9 @@ module Gluttonberg
         unless @subscription.blank?
           @subscription.destroy
           flash[:notice] = "You are successfully unsubscribe from comments of \"#{@subscription.article.title}\""
-          redirect_to blog_article_path(@subscription.article.blog.slug, @subscription.article.slug)
-        end
-        respond_to do |format|
-          format.html
+          redirect_to blog_article_path(:blog_id => @subscription.article.blog.slug, :id => @subscription.article.slug)
+        else
+          raise ActiveRecord::RecordNotFound.new
         end
       end
 
