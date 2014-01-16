@@ -1,10 +1,7 @@
-PATH
-  remote: .
-  specs:
-    gluttonberg-blog (0.0.1)
-
-PATH
-  remote: ../core
+GIT
+  remote: https://github.com/abdulrauf/core
+  revision: a43133595198f28ae9f7e5fe0f02bb75000ebf7f
+  branch: 3.0
   specs:
     gluttonberg-core (3.0)
       acl9 (= 0.12.0)
@@ -30,6 +27,11 @@ PATH
       texticle (= 1.0.4.20101004123327)
       unicorn (= 4.6.3)
       will_paginate (= 3.0.5)
+
+PATH
+  remote: .
+  specs:
+    gluttonberg-blog (0.0.1)
 
 GEM
   remote: https://rubygems.org/
