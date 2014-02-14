@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/abdulrauf/core
-  revision: 068ac3e81d665cbb379f33db4098c5a61e264c90
+  revision: 20a4507f0935c565c439a73d435bc90dc7af900c
   branch: 3.0
   specs:
     gluttonberg-core (3.0)
