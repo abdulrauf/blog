@@ -5,6 +5,7 @@ module Gluttonberg
       include Content::Publishable
       include Content::SlugManagement
       MixinManager.load_mixins(self)
+      
       belongs_to :user
       has_many :articles, :dependent => :destroy, :foreign_key => 'blog_id'
       belongs_to :fb_icon , :class_name => "Gluttonberg::Asset" , :foreign_key => "fb_icon_id"

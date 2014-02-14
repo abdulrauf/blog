@@ -11,7 +11,7 @@ gem 'rails', '~> 3.2'
 gem 'pg', '~> 0.16'
 gem 'jquery-rails', '3.0.4'
 gem 'simplecov', :require => false, :group => :test
-# gem 'gluttonberg-core', :path => '../core', :require => 'gluttonberg'
+#gem 'gluttonberg-core', :path => '../core', :require => 'gluttonberg'
 gem 'gluttonberg-core', :git => 'https://github.com/abdulrauf/core', :require => 'gluttonberg', :branch => "3.0"
 
 # group :assets do

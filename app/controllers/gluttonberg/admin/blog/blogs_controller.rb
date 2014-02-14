@@ -11,10 +11,12 @@ module Gluttonberg
         record_history :@blog
 
         def index
-          @blogs = Gluttonberg::Blog::Weblog.paginate(:per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"), :page => params[:page])
+          @blogs = Gluttonberg::Blog::Weblog.all
+          @blogs = @blogs.find_all{|blog| can?(:manage_object, blog) } 
           if @blogs && @blogs.size == 1
             redirect_to admin_blog_articles_path(@blogs.first)
           end
+          @blogs = @blogs.paginate(:per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"), :page => params[:page])
         end
 
         def show
@@ -31,6 +33,7 @@ module Gluttonberg
 
         def create
           @blog = Gluttonberg::Blog::Weblog.new(params[:gluttonberg_blog_weblog])
+          @blog.current_user_id = current_user.id
           generic_create(@blog, {
             :name => "blog",
             :success_path => admin_blogs_path
@@ -46,6 +49,7 @@ module Gluttonberg
 
         def update
           @blog.assign_attributes(params[:gluttonberg_blog_weblog])
+          @blog.current_user_id = current_user.id
           generic_update(@blog, {
             :name => "blog",
             :success_path => admin_blogs_path
@@ -74,6 +78,7 @@ module Gluttonberg
 
           def find_blog
             @blog = Gluttonberg::Blog::Weblog.where(:id => params[:id]).first
+            authorize! :manage_object, @blog
           end
 
           def authorize_user

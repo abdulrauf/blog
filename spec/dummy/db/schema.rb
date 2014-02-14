@@ -291,7 +291,7 @@ ActiveRecord::Schema.define(:version => 2014011610106) do
     create_table :gb_galleries do |t|
       t.column :title , :string , :limit => 255
       t.column :description, :text
-      t.integer :user_id, :null => false
+      t.integer :user_id
       t.column :slug , :string
       t.column :state , :string
       t.datetime :published_at
@@ -336,6 +336,20 @@ ActiveRecord::Schema.define(:version => 2014011610106) do
       t.timestamps
     end
 
+    create_table :gb_authorizations do |t|
+      t.string :authorizable_type
+      t.integer :authorizable_id
+      t.integer :user_id
+      t.boolean :allow
+      t.timestamps
+    end
+
+    create_table :gb_embeds do |t|
+      t.string :title
+      t.string :shortcode
+      t.text :body
+      t.timestamps
+    end
 
     begin
       Gluttonberg::PlainTextContentLocalization.create_versioned_table

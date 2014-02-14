@@ -51,14 +51,16 @@ module Gluttonberg
 
         def update
           article_attributes = params["gluttonberg_blog_article_localization"].delete(:article)
-          if @article_localization.update_attributes(params[:gluttonberg_blog_article_localization])
-            article = @article_localization.article
-            article.update_attributes(article_attributes)
+          @article_localization.article.assign_attributes(article_attributes)
+          @article_localization.current_user_id = current_user.id
+          @article_localization.updated_at = Time.now
 
+          if @article_localization.update_attributes(params[:gluttonberg_blog_article_localization])            
+            @article_localization.article.save
             _log_article_changes
 
             flash[:notice] = "The article was successfully updated."
-            redirect_to edit_admin_blog_article_path(@article.blog, @article)
+            redirect_to edit_admin_blog_article_path(@article.blog, @article) + (@article_localization.reload && @article_localization.versions.latest.version != @article_localization.version ? "?version=#{@article_localization.versions.latest.version}" : "")
           else
             flash[:error] = "Sorry, The article could not be updated."
             render :edit
@@ -75,6 +77,7 @@ module Gluttonberg
         end
 
         def destroy
+          @article.current_localization
           generic_destroy(@article, {
             :name => "article",
             :success_path => admin_blog_articles_path(@blog),
@@ -121,16 +124,19 @@ module Gluttonberg
 
           def find_blog
             @blog = Gluttonberg::Blog::Weblog.where(:id => params[:blog_id]).first
+            authorize! :manage_object, @blog
           end
 
           def find_article
             @article = Gluttonberg::Blog::Article.where(:id => params[:id]).first
             if params[:localization_id].blank?
-              conditions = { :article_id => params[:id] , :locale_id => Locale.first_default.id}
+              conditions = { :article_id => params[:id] , :locale_id => Gluttonberg::Locale.first_default.id}
               @article_localization = Gluttonberg::Blog::ArticleLocalization.where(conditions).first
             else
               @article_localization = Gluttonberg::Blog::ArticleLocalization.where(:id => params[:localization_id]).first
             end
+            @article.instance_variable_set(:@current_localization, @article_localization)
+            @article
           end
 
           def authorize_user
@@ -153,7 +159,6 @@ module Gluttonberg
 
           def all_articles
             conditions = {:blog_id => params[:blog_id]}
-            conditions[:user_id] = current_user.id unless current_user.super_admin?
             @articles = Gluttonberg::Blog::Article.where(conditions).includes(:localizations).order("created_at DESC")
           end
 
