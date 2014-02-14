@@ -34,7 +34,7 @@ module Gluttonberg
 
           validates_presence_of :title
           attr_accessible :article, :locale_id, :title, :featured_image_id, :excerpt, :body, :seo_title, :seo_keywords, :seo_description, :fb_icon_id, :article_id
-          delegate :state, :_publish_status, :state_changed?, :to => :article
+          delegate :state, :_publish_status, :state_changed?, :to => :article, :allow_nil => true
 
           clean_html [:excerpt , :body]
 
