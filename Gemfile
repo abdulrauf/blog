@@ -7,14 +7,8 @@ gemspec
 
 # libraries used by the dummy application
 
-gem 'rails', '~> 3.2'
-gem 'pg', '~> 0.16'
-gem 'jquery-rails', '3.0.4'
+gem 'rails', '~> 3.2.17'
+gem 'pg', '~> 0.17.1'
+gem 'jquery-rails', '3.1.0'
 gem 'simplecov', :require => false, :group => :test
-#gem 'gluttonberg-core', :path => '../core', :require => 'gluttonberg'
-gem 'gluttonberg-core', :git => 'https://github.com/abdulrauf/core', :require => 'gluttonberg', :branch => "3.0"
-
-# group :assets do
-#   gem 'sass-rails',   '3.2.6'
-#   gem 'uglifier', '>= 2.1.1'
-# end
+gem 'gluttonberg-core', :git => 'https://github.com/Gluttonberg/core', :require => 'gluttonberg', :branch => "3.0"

@@ -1,7 +1,6 @@
 module Gluttonberg
   module Blog
     class Engine < ::Rails::Engine
-
       config.widget_factory_name = "Gluttonberg Blog"
       config.mount_at = '/'
       config.admin_path = '/admin'
