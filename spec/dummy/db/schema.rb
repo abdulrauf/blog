@@ -351,11 +351,16 @@ ActiveRecord::Schema.define(:version => 2014011610106) do
       t.timestamps
     end
 
+    create_table :gb_versions do |t|
+      t.float :version_number, :null => false
+    end
+
     begin
       Gluttonberg::PlainTextContentLocalization.create_versioned_table
     rescue => e
       puts e
     end
+
     begin
       Gluttonberg::HtmlContentLocalization.create_versioned_table
     rescue => e

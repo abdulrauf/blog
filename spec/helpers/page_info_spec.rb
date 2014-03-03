@@ -118,7 +118,7 @@ module Gluttonberg
         @_blog.save
 
         assign(:blog, @_blog)
-        helper.page_fb_icon_path.should eql(@asset2.url)
+        helper.page_fb_icon_path.should eql("http://test.host" + @asset2.url)
 
         @_blog.fb_icon_id = nil
         @_blog.save
@@ -135,7 +135,7 @@ module Gluttonberg
         @_article.save
 
         assign(:article, @_article)
-        helper.page_fb_icon_path.should eql(@asset2.url)
+        helper.page_fb_icon_path.should eql("http://test.host" + @asset2.url)
 
         @_article.current_localization.fb_icon_id = nil
         @_article.save
