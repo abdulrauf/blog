@@ -36,13 +36,15 @@ Rails.application.routes.draw do
     end #admin
     scope :module => 'public' do
       # Blog Stuff
-      get "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
-      get "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments
-      scope "(/:locale)" do
-        resources :blogs do
-          resources :articles do
-            resources :comments
-            get "preview"
+      scope :module => 'blog' do
+        get "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
+        get "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments
+        scope "(/:locale)" do
+          resources :blogs do
+            resources :articles do
+              resources :comments
+              get "preview"
+            end
           end
         end
       end

@@ -13,8 +13,9 @@
         
         by
         = article.author.full_name
-      %p
-        = article.excerpt
+      - unless article.excerpt.blank?
+        %p
+          = article.excerpt.html_safe
   
   .tags_cloud
     - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
